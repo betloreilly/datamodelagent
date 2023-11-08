@@ -30,8 +30,8 @@ class DataModelAgent(BaseTool):
         for row in session.execute(f"SELECT document_id,document,embedding_vector FROM {KEYSPACE_NAME}.{TABLE_NAME} ORDER BY embedding_vector ANN OF {embedding} LIMIT 1"):
                 res = row.document 
 
-        vector_search_result = res
-        print('vector result: '+res)
+        vector_search_result = res.replace("\n", " ")
+        print('vector result: '+vector_search_result)
 
         # System messages and few-shot examples
         system_messages = [
