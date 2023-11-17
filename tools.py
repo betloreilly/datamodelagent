@@ -39,7 +39,7 @@ class DataModelAgent(BaseTool):
             {'role':'system', 'content':'You need to ask questions related to how many rows do they expect in a partition and an initial draft for their table and you will calculate the partition size'},
             {'role':'system', 'content': "Here an example how to calculate the partition size: CREATE TABLE temperature_readings (device_id UUID,timestamp TIMESTAMP,temperature FLOAT,PRIMARY KEY (device_id, timestamp)); "},
             {'role':'system', 'content': f'They will have 500K rows for each device per day: Using the given data type size you can calculate the partition size:Partition size = (16+8+4)*500000 = 14000000 bytes = 13MB. This is a guiding example, adjust the calculation based on the actual data provided.'},
-            {'role':'system', 'content': 'One of the best practices is to have a partition size less than 100MB. If it is above that, you can recommend using another column in the partition key or add time bucketing.'},
+            {'role':'system', 'content': 'One of the best practices is to have a partition size less than 10MB. If it is above that, you can recommend using another column in the partition key or add time bucketing.'},
             {'role':'system', 'content': "Provide other best practices for Cassandra Data Modelling like using TTL, using a new denormalized table for each query access instead of using Secondary Index and Materialized Views"},
             {'role':'system', 'content': f'Result from vector search: {vector_search_result}'},
         ]

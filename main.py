@@ -4,6 +4,8 @@ from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferWindowMemory
 from dotenv import dotenv_values
+from dotenv import load_dotenv
+import os
 from tools import DataModelAgent
 from langchain.schema import SystemMessage
 ##############################
@@ -11,8 +13,14 @@ from langchain.schema import SystemMessage
 ##############################
 tools = [DataModelAgent() ]
 config = dotenv_values('conf.env')
+load_dotenv('conf.env')
+trace= os.getenv('LANGCHAIN_TRACING_V2')
+langsmith_endpoint = os.getenv('LANGCHAIN_ENDPOINT')
+langsmith_api = os.getenv('LANGCHAIN_API_KEY')
+print("Trace on/off : " + trace)
 openai_key = config['OPENAI_API_KEY']
 ASTRA_DB_KEYSPACE = config['ASTRA_KEYSPACE']
+
 
 conversational_memory = ConversationBufferWindowMemory(
     memory_key='chat_history',
@@ -26,9 +34,7 @@ llm = ChatOpenAI(
     model_name="gpt-4"
 )
 
- 
 system_message = SystemMessage(content="You are a Data Model expert in Cassandra Data Modelling")
-
 
 agent = initialize_agent(
     agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
@@ -46,7 +52,6 @@ agent = initialize_agent(
 )
 
 
- 
 user_question = st.text_input('Can you give an explanation about your data model and initial table design please?')
 
 # write agent response
