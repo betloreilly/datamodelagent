@@ -38,8 +38,9 @@ api_key = config['OPENAI_API_KEY']
 
 # loop through all files in the folder all X seconds
 while True:
-	for filename in os.listdir(config['config_inputdir']):
+	for filename in os.listdir(config['config_inputdir']) :
 		# check if the file is a PDF
+		print("Filename "+filename)
 		if filename.endswith(".pdf"):
 			# load the PDF file
 			doc_path = os.path.join(config['config_inputdir'], filename)

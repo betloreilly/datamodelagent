@@ -6,12 +6,12 @@ from langchain.memory import ConversationBufferWindowMemory
 from dotenv import dotenv_values
 from dotenv import load_dotenv
 import os
-from tools import DataModelAgent
+from tools import DataModelAgent,CassandraAgent,AstraMigrationAgent
 from langchain.schema import SystemMessage
 ##############################
 ### initialize agent #########
 ##############################
-tools = [DataModelAgent() ]
+tools = [DataModelAgent(),CassandraAgent(),AstraMigrationAgent()]
 config = dotenv_values('conf.env')
 load_dotenv('conf.env')
 trace= os.getenv('LANGCHAIN_TRACING_V2')
